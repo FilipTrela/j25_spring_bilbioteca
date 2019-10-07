@@ -1,0 +1,43 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
+    <meta charset="UTF-8">
+    <title>Book Add</title>
+</head>
+<body>
+<header th:replace="fragments :: navigator"></header>
+<main role="main" class="main">
+    <center>
+        <form th:action="@{/reader/add}" method="post" th:object="${reader}" class="col-md-10">
+            <input type="hidden" th:field="*{id}" th:value="*{id}">
+            <div class="form-group col-md-5">
+                <input minlength="3" type="text" aria-describedby="nameHelp" placeholder="Name"
+                       class="form-control form-control-lg"
+                       th:field="*{name}"
+                       th:value="*{name}">
+                <small id="nameHelp" class="form-text text-muted">Write your name.</small>
+            </div>
+            <div class="form-group col-md-5">
+                <input minlength="3" type="text" aria-describedby="yearHelp" placeholder="Surname"
+                       class="form-control form-control-lg"
+                       th:field="*{surname}"
+                       th:value="*{surname}">
+                <small id="yearHelp" class="form-text text-muted">Write year surname.</small>
+            </div>
+            <div class="form-group col-md-5">
+                <input minlength="7" maxlength="11" type="text" aria-describedby="pageHelp" placeholder="ID Number"
+                       class="form-control form-control-lg"
+                       th:field="*{idNumber}"
+                       th:value="*{idNumber}">
+                <small id="pageHelp" class="form-text text-muted">Write your ID number.</small>
+            </div>
+            <input type="submit" class="btn btn-outline-light">
+
+        </form>
+    </center>
+
+</main>
+<footer th:replace="fragments :: footer"></footer>
+<div th:replace="fragments :: footerscripts"></div>
+</body>
+</html>

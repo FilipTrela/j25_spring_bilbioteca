@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head> <!--doda treść fragmentu do obecnego taga-->
+    <meta charset="UTF-8">
+    <title>Reader Details</title>
+
+    <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
+</head>
+<body>
+<header th:replace="fragments :: navigator"></header>
+
+<main role="main" class="main">
+    <div class="container">
+        <div class="row col-md-12 list-container">
+            <div class="row col-md-12">
+                <h1>Reader details</h1>
+            </div>
+            <div class="row col-md-12 form-container" th:object="${reader}">
+                <div class="row col-md-12 form-row-container">
+                    <div class="col-md-6">
+                        <label for="id">Id:</label>
+                    </div>
+                    <div class="col-md-6 value-cell" id="id" th:text="*{id}">
+                    </div>
+                </div>
+
+                <div class="row col-md-12 form-row-container">
+                    <div class="col-md-6">
+                        <label for="name">Name:</label>
+                    </div>
+                    <div class="col-md-6 value-cell" id="name" th:text="*{name}">
+                    </div>
+                </div>
+                <div class="row col-md-12 form-row-container">
+                    <div class="col-md-6">
+                        <label for="surname">Surname:</label>
+                    </div>
+                    <div class="col-md-6 value-cell" id="surname" th:text="*{surname}">
+                    </div>
+                </div>
+                <div class="row col-md-12 form-row-container">
+                    <div class="col-md-6">
+                        <label for="idNumber">Number of ID:</label>
+                    </div>
+                    <div class="col-md-6 value-cell" id="idNumber" th:text="*{idNumber}">
+                    </div>
+                </div>
+                <div th:if="${reader.getLents()>0}">
+                    <div class="row col-md-12">
+                        <h1>Reader lents</h1>
+                    </div>
+                    <table class="table table-borderless table-dark col-md-10 table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Date of Lent</th>
+                            <th scope="col">Date of Return</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="bookLent : ${reader.getLents()}">
+                            <th scope="row" th:text="${bookLent.getId()}"></th>
+                            <td th:text="${bookLent.getBook().getTitle()}"></td>
+                            <td th:text="${#temporals.format(bookLent.getDateLent(), 'dd-MM-yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(bookLent.getDateReturned(), 'dd-MM-yyyy HH:mm')}"
+                                th:if="${bookLent.getDateReturned() != null}"></td>
+                            <td class="alert alert-dark" role="alert"
+                                th:if="${bookLent.getDateReturned() == null }"><h3>Not returned</h3></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row col-md-12"
+                th:if="${reader.getLents() == null}">
+                    <h1>Reader never lent a book</h1>
+                </div>
+                <div class="row col-md-12">
+                    <div class="offset-6 col-md-6">
+                        <a th:href="@{${referer}}">
+                            <button type="button" class="btn btn-light offset-5 col-md-6">Back</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="fragments :: footer"></footer>
+</main>
+
+<div th:replace="fragments :: footerscripts"></div>
+</body>
+</html>

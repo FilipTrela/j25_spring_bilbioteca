@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
+    <meta charset="UTF-8">
+    <title>Publishing House Add</title>
+</head>
+<body>
+<header th:replace="fragments :: navigator"></header>
+<main role="main" class="main">
+    <center>
+        <form th:action="@{/ph/add}" method="post" th:object="${publish}" class="col-md-8">
+            <input type="hidden" th:field="*{id}" th:value="*{id}">
+            <div class="form-group">
+                <input type="text" maxlength="3" aria-describedby="nameHelp" placeholder="Publisher Name"
+                       class="form-control form-control-lg"
+                       th:field="*{name}"
+                       th:value="*{name}">
+                <small id="nameHelp" class="form-text text-muted">Write name of the publishing house.</small>
+            </div>
+            <input type="submit" class="btn btn-outline-light">
+        </form>
+    </center>
+
+</main>
+<footer th:replace="fragments :: footer"></footer>
+<div th:replace="fragments :: footerscripts"></div>
+</body>
+</html>

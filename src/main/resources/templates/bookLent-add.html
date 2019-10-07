@@ -1,0 +1,30 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
+    <meta charset="UTF-8">
+    <title>BookLent add</title>
+</head>
+<body>
+<header th:replace="fragments :: navigator"></header>
+<main role="main" class="main">
+    <center>
+        <form th:action="@{/booklent/add}" method="post" th:object="${bookLent}">
+            <input type="hidden" name="clientId" th:value="${clientId}">
+            <input type="hidden" th:field="*{id}" th:value="*{id}">
+            <div class="form-group col-md-5">
+                <select th:name="bookId" id="bookId" class="form-control form-control-lg"
+                        aria-describedby="phHelp">
+                    <!--th:if="${bk.getNumberOfAvailableCopies()>bk.numberOfBorrowedCopies}"-->
+                    <option th:each="bk : ${books}" th:text="${bk.getTitle()}" th:value="${bk.getId()}">
+                </select>
+                <small id="phHelp" class="form-text text-muted">Select Book to Lent</small>
+            </div>
+            <input type="submit" class="btn btn-outline-light">
+        </form>
+    </center>
+
+</main>
+<footer th:replace="fragments :: footer"></footer>
+<div th:replace="fragments :: footerscripts"></div>
+</body>
+</html>

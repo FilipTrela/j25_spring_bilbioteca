@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
+    <meta charset="UTF-8">
+    <title>Reader List</title>
+</head>
+<body>
+<header th:replace="fragments :: navigator"></header>
+<main role="main" class="main">
+    <center>
+        <h1 class="display-4">Reader List</h1>
+        <table class="table table-borderless table-dark col-md-10 table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reader : ${readers}" class="col">
+                <th scope="row" th:text="${reader.getId()}"></th>
+                <td th:text="${reader.getName()}"></td>
+                <td th:text="${reader.getSurname()}"></td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        <a role="button" class="btn btn-warning"
+                           th:href="@{'/reader/delete/'+${reader.getId()}}"
+                           th:if="${reader.lents.isEmpty()}">Delete</a>
+                        <a role="button" class="btn btn-primary" th:href="@{'/reader/edit/'+${reader.getId()}}">Edit</a>
+                        <a role="button" class="btn btn-info"
+                           th:href="@{'/reader/details/'+${reader.getId()}}">Details</a>
+                        <a th:href="@{'/reader/blList/'+${reader.getId()}}"
+                           th:if="${reader.getLents().size()>0}" class="btn btn-secondary" role="button">BookLent List</a>
+                        <a th:href="@{'/booklent/add/'+${reader.getId()}}" class="btn btn-success" role="button">Lent
+                           a Book</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </center>
+    <div class="row col-md-12">
+        <div class="offset-6 col-md-6">
+            <a th:href="@{${referer}}">
+                <button type="button" class="btn btn btn-light offset-7 col-md-3">Back</button>
+            </a>
+        </div>
+    </div>
+
+</main>
+<footer th:replace="fragments :: footer"></footer>
+<div th:replace="fragments :: footerscripts"></div>
+</body>

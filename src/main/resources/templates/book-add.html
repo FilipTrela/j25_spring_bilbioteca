@@ -1,0 +1,59 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
+    <meta charset="UTF-8">
+    <title>Reader Add</title>
+</head>
+<body>
+<header th:replace="fragments :: navigator"></header>
+<main role="main" class="main">
+    <center>
+        <form th:action="@{/book/add}" method="post" th:object="${book}" class="col-md-10">
+            <!--<input type="hidden" name="phId" th:value="${phId}">-->
+            <input type="hidden" th:field="*{id}" th:value="*{id}">
+            <div class="form-group col-md-5">
+                <input minlength="3" type="text" aria-describedby="nameHelp" placeholder="Title"
+                       class="form-control form-control-lg"
+                       th:field="*{title}"
+                       th:value="*{title}">
+                <small id="nameHelp" class="form-text text-muted">Write title.</small>
+            </div>
+            <div class="form-group col-md-5">
+                <input max="2020" type="number" aria-describedby="yearHelp" placeholder="Year"
+                       class="form-control form-control-lg"
+                       th:field="*{yearWritten}"
+                       th:value="*{yearWritten}">
+                <small id="yearHelp" class="form-text text-muted">Write year written.</small>
+            </div>
+            <div class="form-group col-md-5">
+                <input min="0" type="number" aria-describedby="pageHelp" placeholder="Page"
+                       class="form-control form-control-lg"
+                       th:field="*{numberOfPages}"
+                       th:value="*{numberOfPages}">
+                <small id="pageHelp" class="form-text text-muted">Write numbers of pages.</small>
+            </div>
+            <div class="form-group col-md-5">
+                <input min="0" type="number" aria-describedby="copyHelp" placeholder="Copies"
+                       class="form-control form-control-lg"
+                       th:field="*{numberOfAvailableCopies}"
+                       th:value="*{numberOfAvailableCopies}">
+                <small id="copyHelp" class="form-text text-muted">Write number of available copies.</small>
+            </div>
+            <div class="form-group col-md-5">
+                <select th:name="publishingHouseId" id="publishingHouseId" class="form-control form-control-lg"
+                        aria-describedby="phHelp">
+                    <option th:each="ph : ${publishingHouses}" th:text="${ph.getName()}" th:value="${ph.getId()}"
+                            th:selected="${book.getPublishingHouse() != null && book.getPublishingHouse().getId() == ph.getId()}">
+                </select>
+                <small id="phHelp" class="form-text text-muted">Select Publisher</small>
+            </div>
+            <input type="submit" class="btn btn-outline-light">
+
+        </form>
+    </center>
+
+</main>
+<footer th:replace="fragments :: footer"></footer>
+<div th:replace="fragments :: footerscripts"></div>
+</body>
+</html>
